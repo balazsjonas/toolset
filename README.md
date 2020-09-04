@@ -8,18 +8,20 @@
   * maven, gradle, ant
   * makefile, cmake
 * Frameworks
-  * Spring, SpringBoot
+  * Spring 5+, SpringBoot
   * Karaf, osgi
 * Test
   * junit 4, junit 5
   * mockito, hamcrest, assertj
   * rest-assured, cucumber, graphwalker
   * surefire, failsafe
-  * TDD, BDD
+  * TDD, BDD, MCDC
   * Catch2
+  * dbUnit
 * quality
-  * jacoco, errorprone, sonarlint
-  * gcov, valgrind
+  * jacoco, errorprone, sonarlint, pmd
+  * PItest
+  * gcov, lcov, valgrind
 * DB
   * postgres, h2, sqlite
   * redis, mongo, objectDB
@@ -31,6 +33,7 @@
   * MQ: ZMQ, RabbitMQ
   * REST+SOAP:
     * JAX-RS, JAX-WS
+      * Exlipse Jersey, Spring WebMvcTest, SprintBootTest
     * Spring MVC
     * Postman, SOAPUI, jMeter, rest-assured
   * serialization
@@ -50,10 +53,12 @@
   * python
     * numpy, scipy, pandas
     * keras
-* docker
-  * 
+* cloud
+  * docker, kubernetes, Spring Cloud
+  * docker swarm, fabric8:maven-docker-plugin
+  * docker rest api
 * docs
-  * markdown
+  * markup, sphinx, remark.js
 * logging
   * SLF4J, JUL, Logback
   * https://github.com/SergiusTheBest/plog
