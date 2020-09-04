@@ -4,6 +4,9 @@
   * java 8, java 11
   * c++14
   * python 3.6+
+* build
+  * maven, gradle, ant
+  * makefile, cmake
 * Frameworks
   * Spring, SpringBoot
   * Karaf, osgi
@@ -16,7 +19,7 @@
   * Catch2
 * quality
   * jacoco, errorprone, sonarlint
-  * gcov  
+  * gcov, valgrind
 * DB
   * postgres, h2, sqlite
   * redis, mongo, objectDB
@@ -35,7 +38,27 @@
     * JAXB, JAXP, Jackson, gson
     * json, protobuf, flatbuffers
 * libraries
-  * guava, jodatime, apache commons
-  * SLF4j, Quartz, Goldman Sachs collections    
+  * java 
+    * guava, jodatime, apache commons
+    * SLF4J, Quartz, Goldman Sachs collections
+  * c/c++
+    * [GSL](https://github.com/Microsoft/GSL)
+    * https://github.com/kthohr/gcem
+    * Boost, dlib, GNU Scientific Library,
+    * LAPACK, BLAS, Eigen
+    * mlpack, ceres
+  * python
+    * numpy, scipy, pandas
+    * keras
+* docker
+  * 
+* docs
+  * markdown
+* logging
+  * SLF4J, JUL, Logback
+  * https://github.com/SergiusTheBest/plog
+* other
+  * https://google.github.io/styleguide/
+  * Astyle
     
   
