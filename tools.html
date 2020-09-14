@@ -1,13 +1,13 @@
 <!doctype html>
 <html>
 <head>
-    <title>Network | DOT language playground</title>
+  <title>Network | DOT language playground</title>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script src="lib/vis/vis.js"></script>
-    <link href="lib/vis/vis-network.min.css" rel="stylesheet" type="text/css"/>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script src="lib/vis/vis.js"></script>
+  <link href="lib/vis/vis-network.min.css" rel="stylesheet" type="text/css"/>
 
-    <style type="text/css">
+  <style type="text/css">
     body, html {
       font: 10pt sans;
       line-height: 1.5em;;
@@ -34,7 +34,7 @@
       position: relative;
     }
 
-    #left, #right {
+    #bottom, #top {
       position: absolute;
       width: 50%;
       height: 100%;
@@ -44,12 +44,12 @@
       display: inline-block;
     }
 
-    #left {
+    #bottom {
       top: 0;
       left: 0;
     }
 
-    #right {
+    #top {
       top: 0;
       right: 0;
     }
@@ -82,61 +82,85 @@
     }
 
 
-
-
-    </style>
+  </style>
 
 </head>
 <body>
 
 <div id="header">
-    <h1>DOT language playground</h1>
+  <h1>DOT language playground</h1>
 
-    <p>
-        Play around with the DOT language in the textarea below, or select one of the following examples:
-    </p>
+  <p>
+    Play around with the DOT language in the textarea below, or select one of the following
+    examples:
+  </p>
 
-    <div>
-        <button id="draw" title="Draw the DOT graph (Ctrl+Enter)">Draw</button>
-        <span id="error"></span>
-    </div>
+  <div>
+    <button id="draw" title="Draw the DOT graph (Ctrl+Enter)">Draw</button>
+    <span id="error"></span>
+  </div>
 </div>
 
 <div id="contents">
-    <div id="left">
+  <div id="bottom">
     <textarea id="data">
 digraph {
   node [shape=circle fontsize=16]
   edge [length=100, color=gray, fontcolor=black]
 
         languages --{java;cpp;python};
+
         build--{maven;gradle;ant;makefile;cmake};
+          java--{maven;gradle;ant};
+          cpp--{makefile;cmake};
+
         frameworks--{Spring;SpringBoot;osgi;Karaf};
+        java --{Spring;SpringBoot;osgi;Karaf};
+
+
         test--{junit4;junit5;mockito;hamcrest;assertj;
         "rest-assured";cucumber;graphwalker;
         surefire;failsafe;
         TDD;BDD;MCDC;
         Catch2;dbUnit;}
+      java--{junit4;junit5;mockito;hamcrest;assertj;
+        "rest-assured";cucumber;graphwalker;
+        surefire;failsafe;}
+      db--dbUnit;
+      cpp--Catch2;
+
+
         quailty--{jacoco;errorprone;sonarlint;pmd;
         pitest;
         gcov;lcov;valgrind;}
+      java -- {jacoco;errorprone;sonarlint;pmd;
+        pitest;};
+      cpp--{gcov;lcov;valgrind;sonarlint};
+
         db--{postgres;h2;sqlite;
         redis;mongo;objectDB;
         jdbc;jpa;SpringData;sqlalchemy;
         flyway;liquibase;querydsl;jooq;CriteriaApi;};
+      java -- {jdbc;jpa;SpringData;
+        flyway;liquibase;querydsl;jooq;CriteriaApi;};
+      python--sqlalchemy;
+
         communication--{ZMQ;RabbitMQ;
         "JAX-RS";"JAX-WS";
         SpringMVC;
         Postman;SoapUI;jMeter;"rest-assured"};
+
         serialization--{XML;json;protobuf;flatbuffers;};
+      libraries--{guava;jodatime;"Apache Commons";SLF4J;Quartz;"Goldman Sachs Collections"};
+
 
 
 }
     </textarea>
-    </div>
-    <div id="right">
-        <div id="mynetwork"></div>
-    </div>
+  </div>
+  <div id="top">
+    <div id="mynetwork"></div>
+  </div>
 </div>
 
 <script type="text/javascript">
@@ -158,14 +182,15 @@ digraph {
   $('a.example').click(function (event) {
     var url = $(event.target).data('url');
     $.get(url)
-        .done(function(dotData) {
-          $('#data').val(dotData);
-          draw();
-        })
-        .fail(function () {
-          $('#error').html('Error: Cannot fetch the example data because of security restrictions in JavaScript. Run the example from a server instead of as a local file to resolve this problem. Alternatively, you can copy/paste the data of DOT graphs manually in the textarea below.');
-          resize();
-        });
+    .done(function (dotData) {
+      $('#data').val(dotData);
+      draw();
+    })
+    .fail(function () {
+      $('#error').html(
+          'Error: Cannot fetch the example data because of security restrictions in JavaScript. Run the example from a server instead of as a local file to resolve this problem. Alternatively, you can copy/paste the data of DOT graphs manually in the textarea below.');
+      resize();
+    });
   });
 
   $(window).resize(resize);
@@ -183,7 +208,7 @@ digraph {
     $('#contents').height($('body').height() - $('#header').height() - 30);
   }
 
-  function draw () {
+  function draw() {
     try {
       resize();
       $('#error').html('');
@@ -192,14 +217,13 @@ digraph {
       data = vis.network.convertDot($('#data').val());
 
       network.setData(data);
-    }
-    catch (err) {
+    } catch (err) {
       // set the cursor at the position where the error occurred
       var match = /\(char (.*)\)/.exec(err);
       if (match) {
         var pos = Number(match[1]);
         var textarea = $('#data')[0];
-        if(textarea.setSelectionRange) {
+        if (textarea.setSelectionRange) {
           textarea.focus();
           textarea.setSelectionRange(pos, pos);
         }
@@ -209,7 +233,6 @@ digraph {
       $('#error').html(err.toString());
     }
   }
-
 
 
 </script>
